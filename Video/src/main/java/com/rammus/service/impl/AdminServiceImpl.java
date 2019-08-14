@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.rammus.mapper.AdminMapper;
 import com.rammus.model.Admin;
@@ -13,7 +14,7 @@ import com.rammus.model.AdminExample;
 import com.rammus.model.AdminExample.Criteria;
 import com.rammus.service.AdminService;
 import com.rammus.util.VideoResult;
-
+@Service
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
