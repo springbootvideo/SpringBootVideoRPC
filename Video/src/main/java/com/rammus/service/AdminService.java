@@ -1,12 +1,13 @@
 package com.rammus.service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
- 
-import com.rammus.util.VideoResult;
+
+
+import com.rammus.model.Admin;
+
 
 public interface AdminService {
 
-    VideoResult adminLogin(String username, String password,HttpServletRequest req,HttpServletResponse resp);
+	List<Admin> adminLogin(String username, String password);
 }
