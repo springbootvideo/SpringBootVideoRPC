@@ -33,8 +33,8 @@
 			<span>欢迎来到IT培训的黄埔军校——智游教育！</span>
 			<div id="userBlock" style="float: right">
 				<c:if test="${user!=null}">
-					<a href="<%=basePath%>user/logout.do">退出</a>
-					<a  href="<%=basePath%>user/userCenter.do">${user.accounts}</a>
+					<a href="<%=basePath%>user/logout">退出</a>
+					<a  href="<%=basePath%>user/userCenter">${user.accounts}</a>
 				</c:if>
 				<c:if test="${user==null}">
 					<a id="reg_open" raggable="false">注册</a>
@@ -67,7 +67,7 @@
 					<tbody>
 						<tr>
 							<td colspan="2"><a
-								href="<%=basePath%>user/courseList.do?subjectId=1"> <img
+								href="<%=basePath%>user/courseList?subjectId=1"> <img
 									src="<%=basePath%>pictures/html5.jpg" alt=""
 									class="image scale" draggable="false">
 									<div class="headline">
@@ -75,7 +75,7 @@
 											src="<%=basePath%>pictures/arrow.png" alt="">
 									</div>
 							</a></td>
-							<td><a href="<%=basePath%>user/courseList.do?subjectId=6"> <img src="<%=basePath%>pictures/ui.jpg" alt=""
+							<td><a href="<%=basePath%>user/courseList?subjectId=6"> <img src="<%=basePath%>pictures/ui.jpg" alt=""
 									class="image scale" draggable="false">
 									<div class="headline">
 										<span>UI设计教程</span> <img src="<%=basePath%>pictures/arrow.png"
@@ -100,7 +100,7 @@
 											alt="">
 									</div>
 							</a></td>
-							<td colspan="2"><a href="<%=basePath%>user/courseList.do?subjectId=10"> <img
+							<td colspan="2"><a href="<%=basePath%>user/courseList?subjectId=10"> <img
 									src="<%=basePath%>pictures/python.jpg" alt=""
 									class="image scale" draggable="false">
 									<div class="headline">
@@ -110,7 +110,7 @@
 							</a></td>
 						</tr>
 						<tr>
-							<td colspan="2"><a href="<%=basePath%>user/courseList.do?subjectId=11"> <img
+							<td colspan="2"><a href="<%=basePath%>user/courseList?subjectId=11"> <img
 									src="<%=basePath%>pictures/php.jpg" alt="" class="image scale"
 									draggable="false">
 									<div class="headline">
@@ -216,7 +216,7 @@
 				<img src="<%=basePath%>pictures/logo.png" alt="" class="ma">
 			</div>
 			<div class="mask_content_body">
-				<form id="adminForm" action="<%=basePath%>admin/login.do">
+				<form id="adminForm" action="<%=basePath%>admin/login">
 					<h3>后台登录</h3>
 					<input id="loginEmail" placeholder="账号" name="accounts"
 						type="email"> <input id="loginPassword"
@@ -241,7 +241,7 @@
 				<img src="<%=basePath%>pictures/logo.png" alt="" class="ma">
 			</div>
 			<div class="mask_content_body">
-				<form id="loginForm" action="<%=basePath%>user/login.do">
+				<form id="loginForm" action="<%=basePath%>user/login">
 					<h3>快速登录</h3>
 					<input id="loginEmail" placeholder="请输入邮箱" name="accounts"
 						type="email"> <input id="loginPassword"
@@ -266,11 +266,13 @@
 			</div>
 			<div class="mask_content_body">
 				<form id="regForm"
-					action="http://localhost:8080/Voids/user/insertUser.action">
+					action="<%=basePath%>user/register">
 					<h3>新用户注册</h3>
-					<input id="regEmail" placeholder="请输入邮箱" name="email" type="email"><span
-						id="emailMsg"></span> <input id="regPsw" placeholder="请输入密码"
-						name="password" type="password"> <input id="regPswAgain"
+					<input id="regEmail" placeholder="请输入邮箱" name="email" type="email">
+					<span id="emailMsg"> </span> 
+						<input id="regPsw" placeholder="请输入密码"
+						name="password" type="password"> 
+					<input id="regPswAgain"
 						placeholder="请再次输入密码" name="psw_again" type="password"><span
 						id="passMsg"></span>
 					<div id="yzm" class="form-inline">
