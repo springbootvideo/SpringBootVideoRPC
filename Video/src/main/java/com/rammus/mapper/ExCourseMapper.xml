@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rammus.mapper.ExCourseMapper">
+  <resultMap id="BaseResultMap" type="com.rammus.model.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course_title" jdbcType="VARCHAR" property="courseTitle" />
+    <result column="course_desc" jdbcType="VARCHAR" property="courseDesc" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+  </resultMap>
+  
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="com.rammus.model.Course">
+		select * from course where id=#{id}
+  </select>
+  
+  
+  
+  
+</mapper>
