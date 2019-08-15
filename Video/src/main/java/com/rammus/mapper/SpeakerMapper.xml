@@ -69,6 +69,11 @@
   <sql id="Base_Column_List">
     id, speaker_name, speaker_desc, speaker_job, pic_url
   </sql>
+  <!-- 搜索全部 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from speaker
+  </select>
+  
   <select id="selectByExample" parameterType="com.rammus.model.SpeakerExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

@@ -125,7 +125,16 @@ display:inline-block;
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan="9">${pageTool }</td>
+						    <td colspan="2"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
+								test="${selectCouunt%5==0}">
+								<c:set var="page" value="${selectCouunt/5}">
+								</c:set>
+							</c:if> <c:if test="${selectCouunt%5!=0}">
+								<c:set var="page" value="${selectCouunt/5+1}">
+								</c:set>
+							</c:if> <c:forEach var="i" begin="1" end="${page}">
+								<a href="${pageContext.request.contextPath }/admin/videoManage.do?page=${i}">第${i}页</a>
+							</c:forEach>
 					</tr>
 				</tbody>
 			</table>
@@ -139,7 +148,7 @@ display:inline-block;
 	<script type="text/javascript">
 	
 	function selectFor(){
-		$("#videoForm").attr('action','/SSM_Learn/admin/videoSelectLike.do').submit();
+		$("#videoForm").attr('action','/video/admin/videoSelectLike.do').submit();
 		
 	}
 

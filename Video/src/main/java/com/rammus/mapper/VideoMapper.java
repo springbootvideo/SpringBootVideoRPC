@@ -18,8 +18,8 @@ public interface VideoMapper {
 
     List<Video> selectByExample(VideoExample example);
 
-    Video selectByPrimaryKey(Integer videoId);
-
+    Video selectByPrimaryKey(Integer videoId); 
+    
     int updateByExampleSelective(@Param("record") Video record, @Param("example") VideoExample example);
 
     int updateByExample(@Param("record") Video record, @Param("example") VideoExample example);

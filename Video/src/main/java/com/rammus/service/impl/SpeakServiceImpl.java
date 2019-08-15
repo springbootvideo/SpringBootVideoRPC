@@ -16,15 +16,12 @@ public class SpeakServiceImpl implements SpeakService{
 
 	@Autowired
 	SpeakerMapper speakMapper;
+
 	@Override
-	public List<Speaker> getList(Integer parentId) {
+	public List<Speaker> selectAll() {
 		// TODO Auto-generated method stub
-		SpeakerExample example = new SpeakerExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo(parentId);
-	    List<Speaker> list = speakMapper.selectByExample(example);
-	    System.out.println(list);
-		return list;
+		return speakMapper.selectAll();
 	}
+	
 
 }

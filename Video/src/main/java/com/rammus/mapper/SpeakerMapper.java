@@ -10,6 +10,9 @@ public interface SpeakerMapper {
 
     int deleteByExample(SpeakerExample example);
 
+    //搜全
+    List<Speaker> selectAll();
+    
     int deleteByPrimaryKey(Integer id);
 
     int insert(Speaker record);

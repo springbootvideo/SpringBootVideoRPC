@@ -73,6 +73,7 @@
   <sql id="Base_Column_List">
     video_id, title, detail, time, speaker_id, course_id, video_url, image_url, play_num
   </sql>
+  
   <select id="selectByExample" parameterType="com.rammus.model.VideoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
