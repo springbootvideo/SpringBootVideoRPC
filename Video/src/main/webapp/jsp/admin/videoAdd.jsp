@@ -133,7 +133,7 @@ b {
 			<div class="form-group">
 				<label for="videoDesc" class="col-sm-2 control-label">备注</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="detail" name=""detail""
+					<textarea class="form-control" id="detail" name="detail"
 						rows="3"></textarea>
 				</div>
 			</div>

@@ -7,5 +7,5 @@ import com.rammus.util.VideoResult;
 
 public interface SpeakService {
 
-	List<Speaker> getList(Integer parentId);
+	List<Speaker> selectAll();
 }

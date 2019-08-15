@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rammus.mapper.VideoMapper">
-  <resultMap id="BaseResultMap" type="com.rammus.model.Video">
+<mapper namespace="com.rammus.mapper.VideoManageMapper">
+<resultMap id="BaseResultMap" type="com.rammus.model.Video">
     <id column="video_id" jdbcType="INTEGER" property="videoId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
@@ -73,8 +73,40 @@
   <sql id="Base_Column_List">
     video_id, title, detail, time, speaker_id, course_id, video_url, image_url, play_num
   </sql>
+  <resultMap id="ResultMapSpeaker"
+		type="com.rammus.model.VideoMange">
+		<id column="video_id" property="videoId" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="INTEGER" />
+		<result column="speaker_id" property="speakerId"
+			jdbcType="INTEGER" />
+		<result column="course_id" property="courseId"
+			jdbcType="INTEGER" />
+		<result column="video_url" property="videoUrl"
+			jdbcType="VARCHAR" />
+		<result column="image_url" property="imageUrl"
+			jdbcType="VARCHAR" />
+		<result column="play_num" property="playNum" jdbcType="INTEGER" />
+	    <association property="speaker" javaType="com.rammus.model.Speaker">
+			<id column="id" property="id" jdbcType="INTEGER" />
+			<result column="speaker_name" property="speakerName"
+				jdbcType="VARCHAR" />
+			<result column="speaker_desc" property="speakerDesc"
+				jdbcType="VARCHAR" />
+			<result column="speaker_job" property="speakerJob"
+				jdbcType="VARCHAR" />
+			<result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+		</association> 
+	</resultMap>
+  <!-- 分页 -->
+  <select id="getListByPage" resultMap="ResultMapSpeaker">
+    select * from video v left join speaker s on v.speaker_id=s.id order by video_id desc
+  </select>
   
-  <select id="selectByExample" parameterType="com.rammus.model.VideoExample" resultMap="BaseResultMap">
+
+
+<select id="selectByExample" parameterType="com.rammus.model.VideoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -272,5 +304,5 @@
       image_url = #{imageUrl,jdbcType=VARCHAR},
       play_num = #{playNum,jdbcType=INTEGER}
     where video_id = #{videoId,jdbcType=INTEGER}
-  </update>
+  </update>  
 </mapper>

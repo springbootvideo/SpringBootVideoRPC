@@ -1,12 +1,24 @@
 package com.rammus.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import com.rammus.model.Video;
 import com.rammus.model.VideoExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
-public interface VideoMapper {
-    long countByExample(VideoExample example);
+public interface VideoManageMapper {
+
+	public List<Video> getListByPage();
+
+	//总数
+	@Select("select count(*) from video")
+	public int getTotal();
+	
+	
+	
+	long countByExample(VideoExample example);
 
     int deleteByExample(VideoExample example);
 

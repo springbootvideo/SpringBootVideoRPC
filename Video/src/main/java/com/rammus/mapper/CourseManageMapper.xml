@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rammus.mapper.SpeakerMapper">
-  <resultMap id="BaseResultMap" type="com.rammus.model.Speaker">
+<mapper namespace="com.rammus.mapper.CourseManageMapper">
+  <resultMap id="BaseResultMap" type="com.rammus.model.Course">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="speaker_name" jdbcType="VARCHAR" property="speakerName" />
-    <result column="speaker_desc" jdbcType="VARCHAR" property="speakerDesc" />
-    <result column="speaker_job" jdbcType="VARCHAR" property="speakerJob" />
-    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="course_title" jdbcType="VARCHAR" property="courseTitle" />
+    <result column="course_desc" jdbcType="VARCHAR" property="courseDesc" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,20 +66,20 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, speaker_name, speaker_desc, speaker_job, pic_url
+    id, course_title, course_desc, subject_id
   </sql>
-  <!-- 搜索全部 -->
+  <!-- 查全部 -->
   <select id="selectAll" resultMap="BaseResultMap">
-    select * from speaker
+  select * from course
   </select>
   
-  <select id="selectByExample" parameterType="com.rammus.model.SpeakerExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rammus.model.CourseExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from speaker
+    from course
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,85 +90,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from speaker
+    from course
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from speaker
+    delete from course
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.rammus.model.SpeakerExample">
-    delete from speaker
+  <delete id="deleteByExample" parameterType="com.rammus.model.CourseExample">
+    delete from course
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rammus.model.Speaker">
+  <insert id="insert" parameterType="com.rammus.model.Course">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into speaker (speaker_name, speaker_desc, speaker_job, 
-      pic_url)
-    values (#{speakerName,jdbcType=VARCHAR}, #{speakerDesc,jdbcType=VARCHAR}, #{speakerJob,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR})
+    insert into course (course_title, course_desc, subject_id
+      )
+    values (#{courseTitle,jdbcType=VARCHAR}, #{courseDesc,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rammus.model.Speaker">
+  <insert id="insertSelective" parameterType="com.rammus.model.Course">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into speaker
+    insert into course
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="speakerName != null">
-        speaker_name,
+      <if test="courseTitle != null">
+        course_title,
       </if>
-      <if test="speakerDesc != null">
-        speaker_desc,
+      <if test="courseDesc != null">
+        course_desc,
       </if>
-      <if test="speakerJob != null">
-        speaker_job,
-      </if>
-      <if test="picUrl != null">
-        pic_url,
+      <if test="subjectId != null">
+        subject_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="speakerName != null">
-        #{speakerName,jdbcType=VARCHAR},
+      <if test="courseTitle != null">
+        #{courseTitle,jdbcType=VARCHAR},
       </if>
-      <if test="speakerDesc != null">
-        #{speakerDesc,jdbcType=VARCHAR},
+      <if test="courseDesc != null">
+        #{courseDesc,jdbcType=VARCHAR},
       </if>
-      <if test="speakerJob != null">
-        #{speakerJob,jdbcType=VARCHAR},
-      </if>
-      <if test="picUrl != null">
-        #{picUrl,jdbcType=VARCHAR},
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rammus.model.SpeakerExample" resultType="java.lang.Long">
-    select count(*) from speaker
+  <select id="countByExample" parameterType="com.rammus.model.CourseExample" resultType="java.lang.Long">
+    select count(*) from course
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update speaker
+    update course
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.speakerName != null">
-        speaker_name = #{record.speakerName,jdbcType=VARCHAR},
+      <if test="record.courseTitle != null">
+        course_title = #{record.courseTitle,jdbcType=VARCHAR},
       </if>
-      <if test="record.speakerDesc != null">
-        speaker_desc = #{record.speakerDesc,jdbcType=VARCHAR},
+      <if test="record.courseDesc != null">
+        course_desc = #{record.courseDesc,jdbcType=VARCHAR},
       </if>
-      <if test="record.speakerJob != null">
-        speaker_job = #{record.speakerJob,jdbcType=VARCHAR},
-      </if>
-      <if test="record.picUrl != null">
-        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -177,40 +167,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update speaker
+    update course
     set id = #{record.id,jdbcType=INTEGER},
-      speaker_name = #{record.speakerName,jdbcType=VARCHAR},
-      speaker_desc = #{record.speakerDesc,jdbcType=VARCHAR},
-      speaker_job = #{record.speakerJob,jdbcType=VARCHAR},
-      pic_url = #{record.picUrl,jdbcType=VARCHAR}
+      course_title = #{record.courseTitle,jdbcType=VARCHAR},
+      course_desc = #{record.courseDesc,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rammus.model.Speaker">
-    update speaker
+  <update id="updateByPrimaryKeySelective" parameterType="com.rammus.model.Course">
+    update course
     <set>
-      <if test="speakerName != null">
-        speaker_name = #{speakerName,jdbcType=VARCHAR},
+      <if test="courseTitle != null">
+        course_title = #{courseTitle,jdbcType=VARCHAR},
       </if>
-      <if test="speakerDesc != null">
-        speaker_desc = #{speakerDesc,jdbcType=VARCHAR},
+      <if test="courseDesc != null">
+        course_desc = #{courseDesc,jdbcType=VARCHAR},
       </if>
-      <if test="speakerJob != null">
-        speaker_job = #{speakerJob,jdbcType=VARCHAR},
-      </if>
-      <if test="picUrl != null">
-        pic_url = #{picUrl,jdbcType=VARCHAR},
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rammus.model.Speaker">
-    update speaker
-    set speaker_name = #{speakerName,jdbcType=VARCHAR},
-      speaker_desc = #{speakerDesc,jdbcType=VARCHAR},
-      speaker_job = #{speakerJob,jdbcType=VARCHAR},
-      pic_url = #{picUrl,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.rammus.model.Course">
+    update course
+    set course_title = #{courseTitle,jdbcType=VARCHAR},
+      course_desc = #{courseDesc,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
