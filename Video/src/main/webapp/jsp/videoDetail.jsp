@@ -111,8 +111,7 @@
 <c:forEach items="${course.videoList}" var="v">
 					<div class="chapter">
 						<p class="biaoti">
-							<a
-								href="">${v.title }</a>
+							<a href="<%=basePath%>user/videoDetail?videoId=${video.videoId}&courseId=${course.id}">${v.title }</a>
 						</p>
 						<p class="lecturer">${v.detail }</p>
 						<p class="lecturer">讲师：${video.speaker.speakerName}</p>

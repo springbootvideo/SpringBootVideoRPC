@@ -6,6 +6,8 @@ package com.rammus.controller;
  *
  */
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rammus.mapper.UserMapper;
 import com.rammus.model.Course;
 import com.rammus.service.impl.VideoCourseServiceImpl;
+import com.rammus.service.impl.VideoServiceImpl;
 
 @Controller
 public class VideoControler {
@@ -22,19 +25,23 @@ public class VideoControler {
 	VideoCourseServiceImpl vs;
 	@Autowired
 	UserMapper userMapper;
-	@RequestMapping("select")
-	@ResponseBody
-	public Course select(Integer id) {
-		System.out.println(vs.selectById(id));
-		return vs.selectById(id);
-		
-	}
-	@RequestMapping("user/courseList.do")
-	public String index() {
-		//req.setAttribute("courseList", courseService.selectBySubjectId(subjectId));
+	@Autowired
+	VideoServiceImpl videoServiceImpl;
+	
+	
+	
+	@RequestMapping("user/courseList")
+	public String index(HttpServletRequest req, int subjectId) {
+		System.out.println("0000000000000000000000000");
+		req.setAttribute("courseList", vs.selectBySubjectId(subjectId));
 			return "courseList";
 		}
-	
-	
+	@RequestMapping("user/videoDetail")
+	public String videoDetail(HttpServletRequest req,int videoId,int courseId) {
+		req.setAttribute("video", videoServiceImpl.selectById(videoId));
+		req.setAttribute("course", vs.selectByIdContainVideoList(courseId));
+		return "videoDetail";
+		
+	}
 	
 }

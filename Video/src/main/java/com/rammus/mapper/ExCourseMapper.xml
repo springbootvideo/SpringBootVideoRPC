@@ -9,11 +9,60 @@
   </resultMap>
   
   
-  <select id="selectById" resultMap="BaseResultMap" parameterType="com.rammus.model.Course">
-		select * from course where id=#{id}
-  </select>
+	<resultMap id="ResultMapSubject" type="com.rammus.model.ExCourse">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="course_title" property="courseTitle" jdbcType="VARCHAR" />
+		<result column="course_desc" property="courseDesc" jdbcType="VARCHAR" />
+		<result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+		<association property="subject" javaType="com.rammus.model.ExCourse">
+			<id column="subject_id" property="subjectId" jdbcType="INTEGER" />
+			<result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	<resultMap id="ResultMapVideoList"
+		type="com.rammus.model.ExCourse">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="course_title" property="courseTitle"
+			jdbcType="VARCHAR" />
+		<result column="course_desc" property="courseDesc"
+			jdbcType="VARCHAR" />
+		<result column="subject_id" property="subjectId"
+			jdbcType="INTEGER" />
+		<collection property="videoList"
+			ofType="com.rammus.model.Video">
+			<id column="video_id" property="videoId" jdbcType="INTEGER" />
+			<result column="title" property="title" jdbcType="VARCHAR" />
+			<result column="detail" property="detail" jdbcType="VARCHAR" />
+			<result column="time" property="time" jdbcType="INTEGER" />
+			<result column="speaker_id" property="speakerId"
+				jdbcType="INTEGER" />
+			<result column="course_id" property="courseId"
+				jdbcType="INTEGER" />
+			<result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+			<result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+			<result column="play_num" property="playNum" jdbcType="INTEGER" />
+		</collection>
+		</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, course_title, course_desc, subject_id
+	</sql>
+
+	<select id="selectById" resultMap="ResultMapSubject" parameterType="java.lang.Integer">
+		select * from course c left join subject s on c.subject_id=s.subject_id
+		where id = #{id,jdbcType=INTEGER}
+	</select>
   
-  
-  
+  <select id="selectBySubjectId" resultMap="ResultMapVideoList"
+		parameterType="java.lang.Integer">
+		select * from course c left join video v on c.id=v.course_id
+		where subject_id = #{SubjectId,jdbcType=INTEGER} order by c.course_title
+	</select>
+	
+  	<select id="selectByIdContainVideoList" resultMap="ResultMapVideoList"
+		parameterType="java.lang.Integer">
+		select * from course c left join video v on c.id=v.course_id
+		where id = #{id,jdbcType=INTEGER} order by v.video_id
+	</select>
   
 </mapper>

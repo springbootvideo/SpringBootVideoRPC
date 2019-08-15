@@ -74,7 +74,7 @@
 							<c:forEach items="${course.videoList}" var="video">
 								<li class="section-main" >
 									<div class="thum" style="background-image: url(<%=basePath%>${video.imageUrl })"></div>
-									<p><a href="<%=basePath%>user/videoDetail.do?videoId=${video.videoId}&courseId=${course.id}" >${video.title}</a></p>
+									<p><a href="<%=basePath%>user/videoDetail?videoId=${video.videoId}&courseId=${course.id}" >${video.title}</a></p>
 									<div class="classify-v-info">
 										<span class="count" title="观看次数"><img
 											src="<%=basePath%>pictures/count.png" alt="">${video.playNum }</span> <span
