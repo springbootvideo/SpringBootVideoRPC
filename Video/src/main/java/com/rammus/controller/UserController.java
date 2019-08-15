@@ -55,6 +55,13 @@ public class UserController {
 		return "index";
 	}
 
+	/**
+	 * 注册
+	 * 
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/register")
 	public String register(User user, Model model) {
 		// 加密。然后保存
@@ -62,6 +69,12 @@ public class UserController {
 		return "index";
 	}
 
+	/**
+	 * 登出
+	 * 
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
@@ -88,6 +101,12 @@ public class UserController {
 		return "userCenter";
 	}
 
+	/**
+	 * 更新 回显
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userUpdate")
 	public String userUpdate(HttpServletRequest req) {
 		User sessionUser = (User) req.getSession().getAttribute("user");
@@ -95,6 +114,13 @@ public class UserController {
 		return "userUpdate";
 	}
 
+	/**
+	 * 修改
+	 * 
+	 * @param req
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping("/userAlter")
 	public String userAlter(HttpServletRequest req, User user) {
 		User sessionUser = (User) req.getSession().getAttribute("user");
@@ -106,12 +132,25 @@ public class UserController {
 		return "redirect:userCenter";
 	}
 
+	/**
+	 * 更新图片 跳转
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userUpdateImg")
 	public String userUpdateImg(HttpServletRequest req) {
 
 		return "userUpdateImg";
 	}
 
+	/**
+	 * 更新
+	 * 
+	 * @param imageFile
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userAlterImg")
 	public String userAlterImg(MultipartFile imageFile, HttpServletRequest req) {
 //		System.out.println(imageFile);
@@ -145,6 +184,12 @@ public class UserController {
 
 	}
 
+	/**
+	 * 更改密码 跳转
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userUpdatePassword")
 	public String userUpdatePassword(HttpServletRequest req) {
 
@@ -152,12 +197,11 @@ public class UserController {
 	}
 
 	/**
+	 * 验证原密码是否正确
 	 * 
 	 * @param originalPassword
 	 * @param req
 	 * @param resp
-	 * 
-	 *                         验证原密码是否正确
 	 */
 	@RequestMapping("/originalPasswordCheck.do")
 	public void originalPasswordCheck(String originalPassword, HttpServletRequest req, HttpServletResponse resp) {
