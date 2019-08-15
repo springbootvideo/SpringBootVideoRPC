@@ -26,13 +26,13 @@
 		<menu>
 			<div class="container clearfix">
 				<ul class="clearfix f_left">
-					<li><a href="<%=basePath%>user/index.do">首页</a></li>
-					<li class="menu_active"><a href="<%=basePath%>user/userCenter.do">个人中心</a></li>
+					<li><a href="<%=basePath%>user/index">首页</a></li>
+					<li class="menu_active"><a href="<%=basePath%>user/userCenter">个人中心</a></li>
 				</ul>
 				<div id="user_bar">
 					<a> <img id="avatar" src="${user.imgurl }" alt=""
 						width="30px;">
-					</a> <a id="lay_out" href="<%=basePath%>user/logout.do">退出</a>
+					</a> <a id="lay_out" href="<%=basePath%>user/logout">退出</a>
 				</div>
 			</div>
 		</menu>
@@ -42,11 +42,11 @@
 		<h2>我的资料</h2>
 		<div id="profile_tab">
 			<ul class="profile_tab_header f_left clearfix">
-				<li><a href="<%=basePath%>user/userUpdate.do">更改资料</a></li>
+				<li><a href="<%=basePath%>user/userUpdate">更改资料</a></li>
 				<li class="profile_tab_line">|</li>
-				<li><a href="<%=basePath%>user/userUpdateImg.do">更改头像</a></li>
+				<li><a href="<%=basePath%>user/userUpdateImg">更改头像</a></li>
 				<li class="profile_tab_line">|</li>
-				<li><a href="<%=basePath%>user/userUpdatePassword.do">密码安全</a></li>
+				<li><a href="<%=basePath%>user/userUpdatePassword">密码安全</a></li>
 			</ul>
 			<div class="proflle_tab_body">
 				<div class="proflle_tab_workplace clearfix">
