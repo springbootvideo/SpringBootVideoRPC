@@ -8,11 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rammus.model.Admin;
+import com.rammus.model.Speaker;
 import com.rammus.service.AdminService;
+import com.rammus.service.SpeakService;
 import com.rammus.util.VideoResult;
 
 /**
@@ -26,6 +29,12 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	SpeakService speakService;
+	
+	
+	
+	
 	/**
 	 *     管理员登录
 	 * @param accounts
@@ -50,9 +59,12 @@ public class AdminController {
 			return "redirect:index.do";
 		}
 	}
-	@RequestMapping("admin/videoMange.do")
-	public VideoResult videoMapper() {
-		return  VideoResult.ok();
+	@RequestMapping("admin/videoManage.do")
+	public String videoMapper(Model model) {
+		List<Speaker> list = speakService.getList(0);
+		System.out.println(list);
+		model.addAttribute("speakerList", list);
+		return  "admin/videoManage";
 	}
 	
 	
