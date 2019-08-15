@@ -55,6 +55,13 @@ public class UserController {
 		return "index";
 	}
 
+	/**
+	 * 注册
+	 * 
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/register")
 	public String register(User user, Model model) {
 		// 加密。然后保存
@@ -62,6 +69,12 @@ public class UserController {
 		return "index";
 	}
 
+	/**
+	 * 登出
+	 * 
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
@@ -88,6 +101,12 @@ public class UserController {
 		return "userCenter";
 	}
 
+	/**
+	 * 更新 回显
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userUpdate")
 	public String userUpdate(HttpServletRequest req) {
 		User sessionUser = (User) req.getSession().getAttribute("user");
@@ -95,6 +114,13 @@ public class UserController {
 		return "userUpdate";
 	}
 
+	/**
+	 * 修改
+	 * 
+	 * @param req
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping("/userAlter")
 	public String userAlter(HttpServletRequest req, User user) {
 		User sessionUser = (User) req.getSession().getAttribute("user");
@@ -106,31 +132,44 @@ public class UserController {
 		return "redirect:userCenter";
 	}
 
+	/**
+	 * 更新图片 跳转
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userUpdateImg")
 	public String userUpdateImg(HttpServletRequest req) {
 
 		return "userUpdateImg";
 	}
 
+	/**
+	 * 更新
+	 * 
+	 * @param imageFile
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userAlterImg")
 	public String userAlterImg(MultipartFile imageFile, HttpServletRequest req) {
 //		System.out.println(imageFile);
 		System.out.println(imageFile.getContentType());
 		if (imageFile.getContentType().equals("image/jpeg") || imageFile.getContentType().equals("image/png")) {
 			System.out.println("格式符合");
-
+			// 图片名：时间+源文件名
 			String imageName = System.currentTimeMillis() + imageFile.getOriginalFilename();
+			// 获取服务器的图片存放路径
 			String realPath = req.getSession().getServletContext().getRealPath("pictures/");
 			String name = realPath + imageName;
-			String imgUrl = "/SSM_Learn/pictures/" + imageName;
+			String imgUrl = "/video/pictures/" + imageName;
+			// 更新session的图片url，和数据库的
 			User user = (User) req.getSession().getAttribute("user");
-//		System.out.println(name);
-//		System.out.println(imgUrl);
 			user.setImgurl(imgUrl);
 			userService.update(user);
 			req.getSession().setAttribute("user", user);
-
 			try {
+				// 拷贝到服务器
 				imageFile.transferTo(new File(name));
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -138,13 +177,19 @@ public class UserController {
 				e.printStackTrace();
 			}
 
-			return "redirect:userCenter.do";
+			return "redirect:userCenter";
 		}
 		req.setAttribute("msg", "头像格式不符");
-		return "redirect:userCenter.do";
+		return "redirect:userCenter";
 
 	}
 
+	/**
+	 * 更改密码 跳转
+	 * 
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/userUpdatePassword")
 	public String userUpdatePassword(HttpServletRequest req) {
 
@@ -152,19 +197,18 @@ public class UserController {
 	}
 
 	/**
+	 * 验证原密码是否正确
 	 * 
 	 * @param originalPassword
 	 * @param req
 	 * @param resp
-	 * 
-	 *                         验证原密码是否正确
 	 */
-	@RequestMapping("/originalPasswordCheck.do")
+	@RequestMapping("/originalPasswordCheck")
 	public void originalPasswordCheck(String originalPassword, HttpServletRequest req, HttpServletResponse resp) {
 		User user = (User) req.getSession().getAttribute("user");
 
 		boolean isExist;
-		if (!originalPassword.equals(user.getPassword())) {
+		if (!DigestUtils.md5DigestAsHex(originalPassword.getBytes()).equals(user.getPassword())) {
 			// 旧密码错误
 			isExist = false;
 		} else {
@@ -178,7 +222,16 @@ public class UserController {
 
 	}
 
-	@RequestMapping("/rePasswordCheck.do")
+	/**
+	 * 两次输入新密码 验证
+	 * 
+	 * @param newPassword
+	 * @param rePassword
+	 * @param req
+	 * @param resp
+	 */
+
+	@RequestMapping("/rePasswordCheck")
 	public void rePasswordCheck(String newPassword, String rePassword, HttpServletRequest req,
 			HttpServletResponse resp) {
 		boolean isExist;
@@ -202,14 +255,14 @@ public class UserController {
 	 * @param req
 	 * @return 31)修改密码
 	 */
-	@RequestMapping("/passwordUpdate.do")
+	@RequestMapping("/passwordUpdate")
 	public String passwordUpdate(String newPassword, HttpServletRequest req) {
 		User user = (User) req.getSession().getAttribute("user");
 
-		user.setPassword(newPassword);
+		user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
 		userService.update(user);
 		req.getSession().setAttribute("user", user);
-		return "redirect:userCenter.do";
+		return "redirect:userCenter";
 
 	}
 }
