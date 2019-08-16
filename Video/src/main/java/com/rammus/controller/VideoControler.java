@@ -42,6 +42,7 @@ public class VideoControler {
 		req.setAttribute("course", vs.selectByIdContainVideoList(courseId));
 		return "videoDetail";
 		
+	
 	}
 	
 }
