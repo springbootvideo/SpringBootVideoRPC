@@ -8,8 +8,18 @@ public class Course {
     private String courseDesc;
 
     private Integer subjectId;
+    
+    private Subject subject;  
+    
+    public Subject getSubject() {
+		return subject;
+	}
 
-    public Integer getId() {
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public Integer getId() {
         return id;
     }
 

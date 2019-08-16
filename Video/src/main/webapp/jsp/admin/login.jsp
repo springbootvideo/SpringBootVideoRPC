@@ -22,7 +22,7 @@
 
 		<c:if test="${msg!=null}"><div class="alert alert-danger text-center">${msg}</div></c:if>
 
-		<form class="form-horizontal" style="margin-top:15%;" action="<%=basePath%>admin/login.do">
+		<form class="form-horizontal" style="margin-top:15%;" action="<%=basePath%>admin/login">
 			<h2 class="text-center">后台登录</h2>
 			<div class="form-group">
 				<div class="col-md-4 col-md-offset-4">

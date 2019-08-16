@@ -62,13 +62,13 @@ th {
 		</div>
 	</div>
 
-	<form action="http://localhost:8080/Voids/Course/deleteall.do">
+	<form action="http://localhost:8888/Video/admin/deleteAll.do">
 		<div class="container">
 			<button onclick="speakerAdd()" type="button"
 				class="btn btn-info dropdown-toggle" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">添加</button>
 
-			<button onclick="deleteAll()" type="submit" id="btn"
+			<button onclick="deleteAll()" type="button" id="btn"
 				class="btn btn-info dropdown-toggle">批量删除</button>
 		</div>
 
@@ -78,7 +78,7 @@ th {
 				style="text-align: center; table-layout: fixed;">
 				<thead>
 					<tr class="active">
-						<th><input type="checkbox" id="all"></th>
+						<th><input type="checkbox" id="all" name="select" value=""></th>
 						<th>序号</th>
 						<th >名称</th>
 						<th >职位</th>
@@ -90,7 +90,7 @@ th {
 				<tbody>
 					<c:forEach var="speaker" items="${speakerList}">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="select1" value="${speaker.id}"></td>
 							<td>${speaker.id}</td>
 							<td>${speaker.speakerName}</td>
 							<td>${speaker.speakerJob}</td>
@@ -101,7 +101,16 @@ th {
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan="7">${pageTool }</td>
+						    <td colspan="7"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
+								test="${selectCouunt%5==0}">
+								<c:set var="page" value="${selectCouunt/5}">
+								</c:set>
+							</c:if> <c:if test="${selectCouunt%5!=0}">
+								<c:set var="page" value="${selectCouunt/5+1}">
+								</c:set>
+							</c:if> <c:forEach var="i" begin="1" end="${page}">
+								<a href="${pageContext.request.contextPath }/admin/speakerManage.do?page=${i}">第${i}页</a>
+							</c:forEach>
 					</tr>
 				</tbody>
 			</table>
@@ -113,6 +122,54 @@ th {
 
 
 	<script type="text/javascript">
+	   $(function() {
+			$("#all").click(function() {
+				$("input[name='select1']").prop("checked", this.checked);
+			})
+
+		})
+		function deleteAll() {
+			var selected = new Array();
+			$.each($("input[name='select1']"), function() {
+				if (this.checked) {
+					selected.push($(this).val());
+				}
+			})
+			var ids = selected;
+			//var idds =$("#ids").val(ids);
+		 //   alert(idds)
+		 
+		<%-- 	 $.ajax({
+		           type:"post",
+		           url:"<%=basePath%>admin/deleteAll.do",
+		           data:{"ids":ids},		          
+		           dataType:"json",		           
+		           //traditional:true,
+		           success:function(data){
+		               if(data.status=='success'){
+		            	   Confirm.show('温馨提示：', '删除成功');
+
+		                       $(location).attr("温馨提示：', '删除成功","admin/speakerManage.do");
+		                       //window.location.href="user/showUser";
+		                     
+		               }
+		           }
+		       }); --%>
+	 
+			$.post("<%=basePath%>admin/speakerDeleteAll.do",{"ids":ids},function(data){
+				if(data=='success'){
+					Confirm.show('温馨提示：', '删除成功');
+					
+					$(Obj).parent().parent().remove();
+					location.reload();
+				}else{
+					Confirm.show('温馨提示：', '操作失败');
+				}
+			}); 
+		}
+	  
+ 
+	   
 		function speakerAdd(){
 			location.href="<%=basePath%>admin/speakerAdd.do";
 		}

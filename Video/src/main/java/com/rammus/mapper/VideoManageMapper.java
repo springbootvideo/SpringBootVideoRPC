@@ -15,8 +15,8 @@ public interface VideoManageMapper {
 	//总数
 	@Select("select count(*) from video")
 	public int getTotal();
-	
-	
+	//模糊查询
+	List<Video> selectLike(String speakerId, String courseId,@Param("subject") String subject,@Param("factor") String factor);
 	
 	long countByExample(VideoExample example);
 

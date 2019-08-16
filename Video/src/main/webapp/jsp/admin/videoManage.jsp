@@ -98,7 +98,7 @@ display:inline-block;
 				style="text-align: center; table-layout: fixed;">
 				<thead>
 					<tr class="active">
-						<th><input type="checkbox" id="all"></th>
+						<th><input type="checkbox" id="all" name="select"></th>
 						<th>序号</th>
 						<th style="width: 9%">名称</th>
 						<th style="width: 50%">介绍</th>
@@ -112,7 +112,7 @@ display:inline-block;
 				<tbody>
 					<c:forEach var="video" items="${videoList}">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="select"></td>
 							<td>${video.videoId}</td>
 							<td>${video.title}</td>
 							<td
@@ -125,7 +125,7 @@ display:inline-block;
 						</tr>
 					</c:forEach>
 					<tr>
-						    <td colspan="2"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
+						    <td colspan="9"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
 								test="${selectCouunt%5==0}">
 								<c:set var="page" value="${selectCouunt/5}">
 								</c:set>
@@ -155,7 +155,7 @@ display:inline-block;
 
    $(function() {
 		$("#all").click(function() {
-			$("input[name='select']").attr("checked", this.checked);
+			$("input[name='select']").prop("checked", this.checked);
 		})
 
 	})

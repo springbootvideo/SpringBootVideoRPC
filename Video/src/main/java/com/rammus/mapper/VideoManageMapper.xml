@@ -97,14 +97,29 @@
 			<result column="speaker_job" property="speakerJob"
 				jdbcType="VARCHAR" />
 			<result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
-		</association> 
+		</association>
+		<association property="course" javaType="com.rammus.model.Course"> 
+		    <id column="id" property="id" jdbcType="INTEGER" />
+		    <result column="course_title" jdbcType="VARCHAR" property="courseTitle" />
+            <result column="course_desc" jdbcType="VARCHAR" property="courseDesc" />
+		</association>
 	</resultMap>
   <!-- 分页 -->
   <select id="getListByPage" resultMap="ResultMapSpeaker">
     select * from video v left join speaker s on v.speaker_id=s.id order by video_id desc
   </select>
-  
+ <!-- 模糊 --> 
+  <select id="selectLike" resultMap="ResultMapSpeaker">
+  	select * from video v,speaker s
+	<trim prefixOverrides="and" prefix="where"> 
+	<if test="factor!=null and factor!=''"> ${subject} like "%"
+				#{factor} "%" </if>
 
+			<if test="speakerId!=null and speakerId!=0">and v.speaker_id = #{speakerId}</if>
+			<if test="courseId!=null and courseId!=0">and course_id = #{courseId}</if>
+			and v.speaker_id=s.id 
+		</trim>
+  </select>
 
 <select id="selectByExample" parameterType="com.rammus.model.VideoExample" resultMap="BaseResultMap">
     select

@@ -4,6 +4,7 @@ import com.rammus.model.Speaker;
 import com.rammus.model.SpeakerExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface SpeakerMapper {
     long countByExample(SpeakerExample example);
@@ -12,7 +13,10 @@ public interface SpeakerMapper {
 
     //搜全
     List<Speaker> selectAll();
-    
+	//总数
+	@Select("select count(*) from speaker")
+	public int getTotal();
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(Speaker record);
