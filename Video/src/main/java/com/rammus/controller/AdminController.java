@@ -75,6 +75,8 @@ public class AdminController {
 			return "redirect:index.do";
 		}
 	}
+	
+	
 	/**
 	 * 管理员退出
 	 */
