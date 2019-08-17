@@ -23,5 +23,6 @@ public interface VideoManageService {
 	VideoResult videoUpdate(Video video);
 	//删除
 	int deleteById(int id);
-	
+	//模糊查询
+	List<Video> selectLike(String speakerId, String courseId, String subject, String factor);
 }

@@ -23,5 +23,25 @@ public class CourseManageServiceImpl implements CourseManageService{
 		// TODO Auto-generated method stub
 		return courseMM.getTotal();
 	}
+	@Override
+	public void courseSave(Course course) {
+		// TODO Auto-generated method stub
+		courseMM.insert(course);
+	}
+	@Override
+	public Course selectById(Integer id) {
+		// TODO Auto-generated method stub
+		return courseMM.selectByPrimaryKey(id);
+	}
+	@Override
+	public void courseUpdate(Course course) {
+		// TODO Auto-generated method stub
+		courseMM.updateByPrimaryKey(course);
+	}
+	@Override
+	public void courseDelete(Integer id) {
+		// TODO Auto-generated method stub
+		courseMM.deleteByPrimaryKey(id);
+	}
 
 }

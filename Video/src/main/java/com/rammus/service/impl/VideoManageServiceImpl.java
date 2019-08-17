@@ -48,5 +48,10 @@ public class VideoManageServiceImpl implements VideoManageService{
 		videoM.updateByPrimaryKey(video);
 		return VideoResult.ok();
 	}
+	@Override
+	public List<Video> selectLike(String speakerId, String courseId, String subject, String factor) {
+		// TODO Auto-generated method stub
+		return videoM.selectLike(speakerId, courseId, subject, factor);
+	}
 
 }

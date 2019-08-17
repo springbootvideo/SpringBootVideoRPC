@@ -22,8 +22,18 @@ public class VideoMange implements Serializable{
     private Integer playNum;
 
     private Speaker speaker;
+    
+    private Course course;
             
-    public Speaker getSpeaker() {
+    public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Speaker getSpeaker() {
 		return speaker;
 	}
 

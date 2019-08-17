@@ -39,6 +39,9 @@ th {
 					<li><a href="<%=basePath%>admin/videoManage.do">视频管理</a></li>
 					<li><a href="<%=basePath%>admin/speakerManage.do">主讲人管理</a></li>
 					<li><a href="<%=basePath%>admin/courseManage.do">课程管理</a></li>
+					<c:if test="${sessionScope.adminId<=3 }">
+					<li><a href="<%=basePath%>admin/adminManage.do">管理员管理</a></li>
+					</c:if>					
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span>${sessionScope.accounts}</span> <i class="glyphicon glyphicon-log-in"
@@ -78,7 +81,7 @@ th {
 				style="text-align: center; table-layout: fixed;">
 				<thead>
 					<tr class="active">
-						<th><input type="checkbox" id="all"></th>
+						<th><input type="checkbox" id="all" name="select"></th>
 						<th>序号</th>
 						<th style="width: 16%">标题</th>
 						<th style="width: 60%">简介</th>
@@ -89,7 +92,7 @@ th {
 				<tbody>
 					<c:forEach var="course" items="${courseList}">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="select"></td>
 							<td>${course.id}</td>
 							<td>${course.courseTitle}</td>
 							<td
@@ -99,7 +102,7 @@ th {
 						</tr>
 					</c:forEach>
 					<tr>
-						    <td colspan="2"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
+						    <td colspan="6"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
 								test="${selectCouunt%5==0}">
 								<c:set var="page" value="${selectCouunt/5}">
 								</c:set>
@@ -120,6 +123,23 @@ th {
 
 
 	<script type="text/javascript">
+	   $(function() {
+			$("#all").click(function() {
+				$("input[name='select']").prop("checked", this.checked);
+			})
+
+		})
+		function deleteAll() {
+			var selected = [];
+			$.each($("input[name='select']"), function() {
+				if (this.checked) {
+					selected.push($(this).val());
+				}
+			})
+			var ids = JSON.stringify(selected);
+			$("#ids").val(ids);
+		}
+	   
 		function courseAdd(){
 			location.href="<%=basePath%>admin/courseAdd.do";
 		}

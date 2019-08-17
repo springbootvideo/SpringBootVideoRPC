@@ -43,6 +43,9 @@ display:inline-block;
 					<li><a href="<%=basePath%>admin/videoManage.do">视频管理</a></li>
 					<li><a href="<%=basePath%>admin/speakerManage.do">主讲人管理</a></li>
 					<li><a href="<%=basePath%>admin/courseManage.do">课程管理</a></li>
+					<c:if test="${sessionScope.adminId<=3 }">
+					<li><a href="<%=basePath%>admin/adminManage.do">管理员管理</a></li>
+					</c:if>					
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span>${sessionScope.accounts}</span> <i class="glyphicon glyphicon-log-in"
@@ -98,7 +101,7 @@ display:inline-block;
 				style="text-align: center; table-layout: fixed;">
 				<thead>
 					<tr class="active">
-						<th><input type="checkbox" id="all"></th>
+						<th><input type="checkbox" id="all" name="select"></th>
 						<th>序号</th>
 						<th style="width: 9%">名称</th>
 						<th style="width: 50%">介绍</th>
@@ -112,7 +115,7 @@ display:inline-block;
 				<tbody>
 					<c:forEach var="video" items="${videoList}">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="select"></td>
 							<td>${video.videoId}</td>
 							<td>${video.title}</td>
 							<td
@@ -125,7 +128,7 @@ display:inline-block;
 						</tr>
 					</c:forEach>
 					<tr>
-						    <td colspan="2"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
+						    <td colspan="9"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
 								test="${selectCouunt%5==0}">
 								<c:set var="page" value="${selectCouunt/5}">
 								</c:set>
@@ -155,7 +158,7 @@ display:inline-block;
 
    $(function() {
 		$("#all").click(function() {
-			$("input[name='select']").attr("checked", this.checked);
+			$("input[name='select']").prop("checked", this.checked);
 		})
 
 	})

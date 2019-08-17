@@ -22,6 +22,36 @@ public class SpeakServiceImpl implements SpeakService{
 		// TODO Auto-generated method stub
 		return speakMapper.selectAll();
 	}
+
+	@Override
+	public int getTotal() {
+		// TODO Auto-generated method stub
+		return speakMapper.getTotal();
+	}
+
+	@Override
+	public void speakerSave(Speaker speaker) {
+		// TODO Auto-generated method stub
+		speakMapper.insert(speaker);
+	}
+
+	@Override
+	public Speaker selectById(Integer id) {
+		// TODO Auto-generated method stub
+		return speakMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void speakerUpdate(Speaker speaker) {
+		// TODO Auto-generated method stub
+		speakMapper.updateByPrimaryKey(speaker);
+	}
+
+	@Override
+	public void speakerDelete(Integer id) {
+		// TODO Auto-generated method stub
+		speakMapper.deleteByPrimaryKey(id);
+	}
 	
 
 }
