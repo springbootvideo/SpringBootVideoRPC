@@ -43,6 +43,9 @@ display:inline-block;
 					<li><a href="<%=basePath%>admin/videoManage.do">视频管理</a></li>
 					<li><a href="<%=basePath%>admin/speakerManage.do">主讲人管理</a></li>
 					<li><a href="<%=basePath%>admin/courseManage.do">课程管理</a></li>
+					<c:if test="${sessionScope.adminId<=3 }">
+					<li><a href="<%=basePath%>admin/adminManage.do">管理员管理</a></li>
+					</c:if>					
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span>${sessionScope.accounts}</span> <i class="glyphicon glyphicon-log-in"

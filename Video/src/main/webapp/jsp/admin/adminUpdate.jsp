@@ -26,9 +26,9 @@ b {
 	float: right;
 }
 </style>
-
 </head>
 <body>
+
 	<nav class="navbar-inverse">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -52,9 +52,8 @@ b {
 						class="navbar-link" href="<%=basePath%>admin/logout.do">退出</a>
 				</p>
 			</div>
-
 		</div>
-
+		<!-- /.container-fluid -->
 	</nav>
 
 
@@ -63,8 +62,8 @@ b {
 		<div class="container">
 
 
-			<h2>添加视频</h2>
 
+			<h2>修改管理员</h2>
 
 		</div>
 	</div>
@@ -73,90 +72,41 @@ b {
 
 	<div class="container" style="margin-top: 20px;">
 
-		<form id="infoForm" class="form-horizontal"
-			action="<%=basePath%>admin/videoSave.do" method="post">
-
-
+		<form id="infoForm" class="form-horizontal" action="<%=basePath%>admin/adminAlter.do">
 			<div class="form-group">
-				<label for="subjectTitle" class="col-sm-2 control-label">标题</label>
+				<label for="subjectTitle" class="col-sm-2 control-label">姓名</label>
 				<div class="col-sm-10">
-					<input class="form-control" name="title" id="subjectTitle"
-						placeholder="课程标题" type="text">
+					<input class="form-control" name="accounts" id="subjectTitle"
+						value="${admin.accounts }" type="text">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="speakerId" class="col-sm-2 control-label">主讲人</label>
+				<label for="subjectTitle" class="col-sm-2 control-label">密码</label>
 				<div class="col-sm-10">
-
-					<select name="speakerId" id="speakerId" class="form-control">
-
-						<c:forEach var="speaker" items="${speakerList}">
-							<option value="${speaker.id}">${speaker.speakerName}</option>
-						</c:forEach>
-
-					</select>
-
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="courseId" class="col-sm-2 control-label">所属课程</label>
-				<div class="col-sm-10">
-
-					<select name="courseId" id="courseId" class="form-control">
-
-						<c:forEach var="course" items="${courseList}">
-							<option value="${course.id}">${course.courseTitle}</option>
-						</c:forEach>
-					</select>
-
+					<input class="form-control" name="password" id="subjectTitle"
+						value="${admin.password}" type="text">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="time" class="col-sm-2 control-label">视频时长</label>
+				<label for="subjectTitle" class="col-sm-2 control-label">介绍</label>
 				<div class="col-sm-10">
-					<input class="form-control" name="time" id="time"
-						placeholder="精确到秒（正整数）" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="imageUrl" class="col-sm-2 control-label">封面图片地址</label>
-				<div class="col-sm-10">
-					<input class="form-control" name="imageUrl" id="imageUrl"
-						placeholder="具体url" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="videoUrl" class="col-sm-2 control-label">视频播放地址</label>
-				<div class="col-sm-10">
-					<input class="form-control" name="videoUrl" id="videoUrl"
-						placeholder="具体url" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="videoDesc" class="col-sm-2 control-label">备注</label>
-				<div class="col-sm-10">
-					<textarea class="form-control" id="detail" name="detail"
-						rows="3"></textarea>
+					<input class="form-control" name="adminRemark" id="subjectTitle"
+						value="${admin.adminRemark }" type="text">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
+				<input type="hidden" name="adminId" value=${admin.adminId }>
 					<button type="submit" class="btn btn-default">保存</button>
 				</div>
 			</div>
 		</form>
 	</div>
-
-
-
 	<script src="<%=basePath%>js/jquery-1.js"></script>
 	<script src="<%=basePath%>js/bootstrap.js"></script>
 	<script src="<%=basePath%>js/confirm.js"></script>
 	<script src="<%=basePath%>js/jquery.js"></script>
 	<script src="<%=basePath%>js/message_cn.js"></script>
-
-
 
 	<div id="modal-background" class=""></div>
 	<div id="confirm-modal" class="modal fade role=" dialog"=""

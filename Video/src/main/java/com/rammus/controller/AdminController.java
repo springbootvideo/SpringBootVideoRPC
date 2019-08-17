@@ -60,13 +60,14 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("admin/login")
-	public String backPage(String accounts, String password,HttpServletRequest req,HttpSession session) {
+	public String backPage(String accounts, String password,HttpServletRequest req,HttpSession session,Model model) {
 		List<Admin> list = adminService.adminLogin(accounts, password);
 		if(list!=null&&list.size()>0){
 			Admin admin=list.get(0);
 			if (password.equals(admin.getPassword())) {
-				System.out.println(admin.getPassword()+"********");
+			//	System.out.println(admin.getPassword()+"********");
 				session.setAttribute("accounts", admin.getAccounts());
+				session.setAttribute("adminId", admin.getAdminId());
 				return "admin/index";
 			}else {
 				return "index";
@@ -84,7 +85,55 @@ public class AdminController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("admin");
 		return "index";
-	}	
+	}
+	/**
+	 * 管理员的CRUD
+	 */
+	@RequestMapping("admin/adminManage.do")
+	public String adminManage(Model model,@RequestParam(required = false, defaultValue = "1") int page) {
+		PageHelper.startPage(page , 5);
+		List<Admin> selectById = adminService.selectById();
+		model.addAttribute("adminList", selectById);
+		model.addAttribute("selectCouunt", selectById.size());
+		model.addAttribute("page", page);
+		return "admin/adminManage";
+	}
+	@RequestMapping("admin/adminAdd.do")
+	public String adminAdd() {
+		return "admin/adminAdd";
+	}
+	@RequestMapping("admin/adminSave.do")
+	public String adminSave(Admin admin) {
+		adminService.adminSave(admin);
+		return "redirect:adminManage.do";
+	}
+	@RequestMapping("admin/adminUpdate.do")
+	public String adminUpdate(Integer id,Model model) {
+		Admin selectByIdd = adminService.selectByIdd(id);
+		model.addAttribute("admin", selectByIdd);
+		return "admin/adminUpdate";
+	}
+	@RequestMapping("admin/adminAlter.do")
+	public String adminAlter(Admin admin) {
+		//System.out.println(admin.toString());
+		adminService.adminUpdate(admin);
+		return "redirect:adminManage.do";
+	}
+	@RequestMapping("admin/adminDelete.do")
+	public void adminDelete(Integer id , HttpServletResponse resp) {
+	//	System.out.println(id);
+		
+		adminService.adminDelete(id);
+		try {
+			resp.getWriter().write("success");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	//	return "admin/adminManage";
+	}
+
+	
 	/**
 	 * video的CRUD
 	 * @param model
@@ -95,7 +144,7 @@ public class AdminController {
 	@RequestMapping("admin/videoManage.do")
 	public String videoMapper(Model model,@RequestParam(required = false, defaultValue = "1") int page) {
 		List<Speaker> list = speakService.selectAll();
-		System.out.println(page);
+		//System.out.println(page);
 		List<Course> selectAll = CourseMS.selectAll();
 		int total = videoMS.getTotal();
 		PageHelper.startPage(page , 5);
@@ -143,7 +192,7 @@ public class AdminController {
 	//video单删
 	@RequestMapping("admin/videoDelete.do")
 	public void videoDelete(HttpServletRequest request, int id, HttpServletResponse resp) {
-		System.out.println(id);
+		//System.out.println(id);
 		videoMS.deleteById(id);
 		try {
 			resp.getWriter().write("success");
@@ -158,7 +207,7 @@ public class AdminController {
 	@RequestMapping(value="admin/videoDeleteAll.do",produces=MediaType.APPLICATION_JSON_VALUE+";charset=utf-8")
 	@ResponseBody
 	public void videoDeleteAll(HttpServletRequest request,@RequestParam("ids[]")Integer[] ids,HttpServletResponse resp) {
-		System.out.println(ids);
+	//	System.out.println(ids);
 		List<Integer> list = Arrays.asList(ids);
 		for (Integer integer : list) {
 			System.out.println(integer);
@@ -176,14 +225,14 @@ public class AdminController {
 	public String selectLike(HttpServletRequest request,
 			@RequestParam(required = false, defaultValue = "1") int page, String speakerId, String courseId,
 			String factor,Model model) {
-		System.out.println(factor);
+	//	System.out.println(factor);
 		PageHelper.startPage(page, 5);
 		List<Video> selectLike = videoMS.selectLike(speakerId, courseId, "title", factor);
 		model.addAttribute("videoList", selectLike);
 		List<Speaker> list = speakService.selectAll();
 		model.addAttribute("page", page);
 		List<Course> selectAll = CourseMS.selectAll();
-		System.out.println(selectLike);
+	//	System.out.println(selectLike);
 		model.addAttribute("speakerList", list);
 		model.addAttribute("courseList", selectAll);
 		model.addAttribute("selectCouunt", selectLike.size());
@@ -215,7 +264,7 @@ public class AdminController {
 	//增加Course
 	@RequestMapping("admin/courseSave.do")
 	public String courseSave(Course course) {
-		System.out.println(course);
+	//	System.out.println(course);
 		CourseMS.courseSave(course);
 		return "redirect:courseManage.do";
 	}
@@ -232,13 +281,13 @@ public class AdminController {
 	@RequestMapping("admin/courseAlter.do")
 	public String courseAlter(Course course) {
 		CourseMS.courseUpdate(course);
-		System.out.println(course);
+	//	System.out.println(course);
 		return "redirect:courseManage.do";
 	}
 	//单删Course
 	@RequestMapping("admin/courseDelete.do")
 	public void courseDelete(HttpServletRequest request, int id, HttpServletResponse resp) {
-		System.out.println(id);
+	//	System.out.println(id);
 		CourseMS.courseDelete(id);
 		try {
 			resp.getWriter().write("success");
@@ -254,7 +303,7 @@ public class AdminController {
 		System.out.println(ids);
 		List<Integer> list = Arrays.asList(ids);
 		for (Integer integer : list) {
-			System.out.println(integer);
+		//	System.out.println(integer);
 			CourseMS.courseDelete(integer);
 		}
 		try {
@@ -320,7 +369,7 @@ public class AdminController {
 	@RequestMapping(value="admin/speakerDeleteAll.do",produces=MediaType.APPLICATION_JSON_VALUE+";charset=utf-8")
 	@ResponseBody
 	public void speakerDeleteAll(HttpServletRequest request,@RequestParam("ids[]")Integer[] ids,HttpServletResponse resp) {
-		System.out.println(ids);
+	//	System.out.println(ids);
 		List<Integer> list = Arrays.asList(ids);
 		for (Integer integer : list) {
 			System.out.println(integer);

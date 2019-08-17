@@ -61,7 +61,7 @@ th {
 
 	<div class="jumbotron" style="padding-top: 15px; padding-bottom: 15px;">
 		<div class="container">
-			<h2>主讲人管理</h2>
+			<h2>管理员管理</h2>
 		</div>
 	</div>
 
@@ -83,28 +83,25 @@ th {
 					<tr class="active">
 						<th><input type="checkbox" id="all" name="select" value=""></th>
 						<th>序号</th>
-						<th >名称</th>
-						<th >职位</th>
-						<th style="width: 60%">简介</th>
+						<th style="width: 10%">管理员账号名</th>
+						<th style="width: 50%">介绍</th>
 						<th>编辑</th>
 						<th>删除</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="speaker" items="${speakerList}">
+					<c:forEach var="admin" items="${adminList}">
 						<tr>
-							<td><input type="checkbox" name="select1" value="${speaker.id}"></td>
-							<td>${speaker.id}</td>
-							<td>${speaker.speakerName}</td>
-							<td>${speaker.speakerJob}</td>
-							<td
-								style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${speaker.speakerDesc}</td>
-							<td><a href="<%=basePath%>admin/speakerUpdate.do?id=${speaker.id}">✎</a></td>
-							<td><a id="del" href="javascript:void(0)" onclick="delCourseById('#del','${speaker.id}','${speaker.speakerName}')">X</a></td>
+							<td><input type="checkbox" name="select1" value="${admin.adminId}"></td>
+							<td>${admin.adminId}</td>
+							<td>${admin.accounts}</td>
+							<td>${admin.adminRemark}</td>
+							<td><a href="<%=basePath%>admin/adminUpdate.do?id=${admin.adminId}">✎</a></td>
+							<td><a id="del" href="javascript:void(0)" onclick="delCourseById('#del','${admin.adminId}','${admin.accounts}')">X</a></td>
 						</tr>
 					</c:forEach>
 					<tr>
-						    <td colspan="7"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
+						    <td colspan="6"><font>总共${selectCouunt}条,当前第${page}页</font> <c:if
 								test="${selectCouunt%5==0}">
 								<c:set var="page" value="${selectCouunt/5}">
 								</c:set>
@@ -112,7 +109,7 @@ th {
 								<c:set var="page" value="${selectCouunt/5+1}">
 								</c:set>
 							</c:if> <c:forEach var="i" begin="1" end="${page}">
-								<a href="${pageContext.request.contextPath }/admin/speakerManage.do?page=${i}">第${i}页</a>
+								<a href="${pageContext.request.contextPath }/admin/adminManage.do?page=${i}">第${i}页</a>
 							</c:forEach>
 					</tr>
 				</tbody>
@@ -142,23 +139,6 @@ th {
 			//var idds =$("#ids").val(ids);
 		 //   alert(idds)
 		 
-		<%-- 	 $.ajax({
-		           type:"post",
-		           url:"<%=basePath%>admin/deleteAll.do",
-		           data:{"ids":ids},		          
-		           dataType:"json",		           
-		           //traditional:true,
-		           success:function(data){
-		               if(data.status=='success'){
-		            	   Confirm.show('温馨提示：', '删除成功');
-
-		                       $(location).attr("温馨提示：', '删除成功","admin/speakerManage.do");
-		                       //window.location.href="user/showUser";
-		                     
-		               }
-		           }
-		       }); --%>
-	 
 			$.post("<%=basePath%>admin/speakerDeleteAll.do",{"ids":ids},function(data){
 				if(data=='success'){
 					Confirm.show('温馨提示：', '删除成功');
@@ -169,12 +149,12 @@ th {
 					Confirm.show('温馨提示：', '操作失败');
 				}
 			}); 
-		}
+     	}
 	  
  
 	   
 		function speakerAdd(){
-			location.href="<%=basePath%>admin/speakerAdd.do";
+			location.href="<%=basePath%>admin/adminAdd.do";
 		}
 		function delCourseById(Obj,id,title){
 
@@ -183,7 +163,7 @@ th {
 					'primary': true,
 					'callback': function() {
 						var param={"id":id};
-						$.post("<%=basePath%>admin/speakerDelete.do",param,function(data){
+						$.post("<%=basePath%>admin/adminDelete.do",param,function(data){
 							if(data=='success'){
 								Confirm.show('温馨提示：', '删除成功');
 								$(Obj).parent().parent().remove();

@@ -44,7 +44,7 @@ b {
 					<li><a href="<%=basePath%>admin/courseManage.do">课程管理</a></li>
 					<c:if test="${sessionScope.adminId<=3 }">
 					<li><a href="<%=basePath%>admin/adminManage.do">管理员管理</a></li>
-					</c:if>						
+					</c:if>	
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span>${sessionScope.accounts}</span> <i
@@ -63,7 +63,7 @@ b {
 		<div class="container">
 
 
-			<h2>添加视频</h2>
+			<h2>添加管理员</h2>
 
 
 		</div>
@@ -74,70 +74,27 @@ b {
 	<div class="container" style="margin-top: 20px;">
 
 		<form id="infoForm" class="form-horizontal"
-			action="<%=basePath%>admin/videoSave.do" method="post">
-
+			action="<%=basePath%>admin/adminSave.do" method="post">
 
 			<div class="form-group">
-				<label for="subjectTitle" class="col-sm-2 control-label">标题</label>
+				<label for="subjectTitle" class="col-sm-2 control-label">管理名</label>
 				<div class="col-sm-10">
-					<input class="form-control" name="title" id="subjectTitle"
-						placeholder="课程标题" type="text">
+					<input class="form-control" name="accounts" id="subjectTitle"
+						 type="text">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="speakerId" class="col-sm-2 control-label">主讲人</label>
+				<label for="subjectTitle" class="col-sm-2 control-label">密码</label>
 				<div class="col-sm-10">
-
-					<select name="speakerId" id="speakerId" class="form-control">
-
-						<c:forEach var="speaker" items="${speakerList}">
-							<option value="${speaker.id}">${speaker.speakerName}</option>
-						</c:forEach>
-
-					</select>
-
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="courseId" class="col-sm-2 control-label">所属课程</label>
-				<div class="col-sm-10">
-
-					<select name="courseId" id="courseId" class="form-control">
-
-						<c:forEach var="course" items="${courseList}">
-							<option value="${course.id}">${course.courseTitle}</option>
-						</c:forEach>
-					</select>
-
+					<input class="form-control" name="password" id="subjectTitle"
+						 type="text">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="time" class="col-sm-2 control-label">视频时长</label>
+				<label for="subjectTitle" class="col-sm-2 control-label">介绍</label>
 				<div class="col-sm-10">
-					<input class="form-control" name="time" id="time"
-						placeholder="精确到秒（正整数）" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="imageUrl" class="col-sm-2 control-label">封面图片地址</label>
-				<div class="col-sm-10">
-					<input class="form-control" name="imageUrl" id="imageUrl"
-						placeholder="具体url" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="videoUrl" class="col-sm-2 control-label">视频播放地址</label>
-				<div class="col-sm-10">
-					<input class="form-control" name="videoUrl" id="videoUrl"
-						placeholder="具体url" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="videoDesc" class="col-sm-2 control-label">备注</label>
-				<div class="col-sm-10">
-					<textarea class="form-control" id="detail" name="detail"
-						rows="3"></textarea>
+					<input class="form-control" name="adminRemark" id="subjectTitle"
+						type="text">
 				</div>
 			</div>
 			<div class="form-group">
