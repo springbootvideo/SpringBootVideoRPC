@@ -1,30 +1,14 @@
 package com.rammus.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ExCourse extends Course{
+import lombok.Data;
+@Data
+public class ExCourse extends Course implements Serializable{
 	private Subject subject;
-	private List<Video> videoList;
-	public Subject getSubject() {
-		return subject;
-	}
-	public void setSubject(Subject subject) {
-		this.subject = subject;
-	}
-	public List<Video> getVideoList() {
-		return videoList;
-	}
-	public void setVideoList(List<Video> videoList) {
-		this.videoList = videoList;
-	}
-	public ExCourse(Subject subject, List<Video> videoList) {
-		super();
-		this.subject = subject;
-		this.videoList = videoList;
-	}
-	public ExCourse() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private List<Video> videoList =new ArrayList<Video>();
+
 	
 }

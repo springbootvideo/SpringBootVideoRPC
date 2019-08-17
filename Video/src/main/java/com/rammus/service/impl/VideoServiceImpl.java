@@ -3,9 +3,12 @@ package com.rammus.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.rammus.mapper.ExVideoMapper;
+import com.rammus.mapper.VideoMapper;
+import com.rammus.model.ExVideo;
 import com.rammus.model.Video;
 import com.rammus.service.VideoService;
 /**
@@ -17,10 +20,11 @@ import com.rammus.service.VideoService;
 @Service
 public class VideoServiceImpl implements VideoService {
 
-
+	@Autowired
+	VideoMapper videoMapper;
 	@Autowired
 	ExVideoMapper ev;
-
+	@Autowired ExVideoMapper exVideoMapper;
 	public List<Video> getAll() {
 
 		return ev.getAll();
@@ -40,15 +44,14 @@ public class VideoServiceImpl implements VideoService {
 		ev.insert(video);
 
 	}
+	@Cacheable("SELCELT_VIDEO")
+	public ExVideo selectById(int videoId) {
+		ExVideo video = exVideoMapper.selectById(videoId);
 
-	public Video selectById(int id) {
-
-		return ev.selectById(id);
+		return video;
 	}
-
-	public Integer update(Video video) {
-
-		return ev.updateById(video);
+	public void update(Video video) {
+		videoMapper.updateByPrimaryKeySelective(video);
 	}
 
 	public void deleteById(int id) {
@@ -67,4 +70,9 @@ public class VideoServiceImpl implements VideoService {
 		// TODO Auto-generated method stub
 		return ev.selectLikeCount(speakerId, courseId, subject, factor);
 	}
+
+
+
+
+	
 }

@@ -1,6 +1,8 @@
 package com.rammus.model;
 
-public class VideoMange {
+import java.io.Serializable;
+
+public class VideoMange implements Serializable{
     private Integer videoId;
 
     private String title;

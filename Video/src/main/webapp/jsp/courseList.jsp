@@ -56,30 +56,31 @@
 		</div>
 
 		<!--面包屑导航-->
-		<div class="container mian-nav" id="navDiv">公开课 / WEB前端</div>
+		
 
-		<c:forEach items="${courseList}" var="course">
+		<c:forEach items="${videoResult.data.courseList}" var="course" varStatus="status">
+			<div class="container mian-nav" id="navDiv">公开课 / ${course.subject.subjectName }</div>
 			<div class="classify">
 				<div class="container" id="dataContainer">
 					<div class="section">
 						<div class="classifyName">
-							<p class="title title-first">${course.courseTitle }</p>
+							<p class="title title-first">${course.courseTitle}</p>
 						</div>
 						<div class="kcIntro">
 							<p class="int">
-								<span>课程介绍：</span> ${course.courseDesc }
+								<span>课程介绍：</span> ${course.courseDesc}
 							</p>
 						</div>
 						<ul>
 							<c:forEach items="${course.videoList}" var="video">
 								<li class="section-main" >
-									<div class="thum" style="background-image: url(<%=basePath%>${video.imageUrl })"></div>
-									<p><a href="<%=basePath%>user/videoDetail?videoId=${video.videoId}&courseId=${course.id}" >${video.title}</a></p>
+									<div class="thum" style="background-image: url(<%=basePath%>${video.imageUrl})"></div>
+									<p><a href="<%=basePath%>user/videoDetail?videoId=${video.videoId}&subjectId=${videoResult.data.subjectId}" >${video.title}</a></p>
 									<div class="classify-v-info">
 										<span class="count" title="观看次数"><img
-											src="<%=basePath%>pictures/count.png" alt="">${video.playNum }</span> <span
+											src="<%=basePath%>pictures/count.png" alt="">${video.playNum}</span> <span
 											class="duration" title="视频时长"><img
-											src="<%=basePath%>pictures/player.png" alt="">${video.time }</span>
+											src="<%=basePath%>pictures/player.png" alt="">${video.time}</span>
 									</div>
 								</li>
 							</c:forEach>

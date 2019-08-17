@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.rammus.model.Course;
+import com.rammus.model.ExCourse;
 /**
  * 
  * @author Eason
@@ -22,7 +23,7 @@ public interface ExCourseMapper {
 	
 	Course selectByIdContainVideoList(Integer id);
 
-	List<Course> selectBySubjectId(Integer SubjectId);
+	List<ExCourse> selectBySubjectId(Integer SubjectId);
 
 	int updateByIdSelective(Course record);
 
@@ -34,6 +35,8 @@ public interface ExCourseMapper {
 
 	@Select("select count(*) from course")
 	public int getTotal();
+	
+	 List<ExCourse> selectIncludeVideoAndSubjectBySubjectId(int subjectId);
 }
 
 

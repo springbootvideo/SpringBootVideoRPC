@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rammus.mapper.ExCourseMapper;
 import com.rammus.model.Course;
+import com.rammus.model.ExCourse;
 /**
  * 
  * @author Eason
@@ -24,12 +25,13 @@ public interface VideoCourseService {
 
 	public Course selectById(int id);
 
-	public List<Course> selectBySubjectId(int subjectId);
+	public List<ExCourse> selectBySubjectId(int subjectId);
 	
 	public Course selectByIdContainVideoList(int id);
 
 	public Integer update(Course course);
 
 	public void deleteById(int id);
+	List<ExCourse> selectIncludeVideoAndSubjectBySubjectId(int subjectId);
 }
 
