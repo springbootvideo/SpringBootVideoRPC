@@ -70,6 +70,10 @@ public class UserController {
 	}
 
 	/**
+	 * 验证用户是否存在
+	 */
+
+	/**
 	 * 登出
 	 * 
 	 * @param session
