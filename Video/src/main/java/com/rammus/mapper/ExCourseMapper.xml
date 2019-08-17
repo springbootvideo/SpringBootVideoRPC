@@ -14,11 +14,12 @@
 		<result column="course_title" property="courseTitle" jdbcType="VARCHAR" />
 		<result column="course_desc" property="courseDesc" jdbcType="VARCHAR" />
 		<result column="subject_id" property="subjectId" jdbcType="INTEGER" />
-		<association property="subject" javaType="com.rammus.model.ExCourse">
+		<association property="subject" javaType="com.rammus.model.Subject">
 			<id column="subject_id" property="subjectId" jdbcType="INTEGER" />
 			<result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
 		</association>
 	</resultMap>
+	
 	<resultMap id="ResultMapVideoList"
 		type="com.rammus.model.ExCourse">
 		<id column="id" property="id" jdbcType="INTEGER" />
@@ -65,4 +66,43 @@
 		where id = #{id,jdbcType=INTEGER} order by v.video_id
 	</select>
   
+  <resultMap type="com.rammus.model.ExCourse" id="courseMap2">
+		<id column="id" property="id" />
+		<result column="course_title" property="courseTitle" />
+		<result column="course_desc" property="courseDesc" />
+		<result column="subject_id" property="subjectId" />
+		<association column="subject_id" property="subject"
+			javaType="com.rammus.model.Subject">
+			<id column="subject_id" property="subjectId" />
+			<result column="subject_name" property="subjectName" />
+		</association>
+		<collection property="videoList" ofType="com.rammus.model.ExVideo">
+			<id column="video_id" property="videoId" />
+			<result column="title" property="title" />
+			<result column="detail" property="detail" />
+			<result column="time" property="time" />
+			<result column="video_url" property="videoUrl" />
+			<result column="image_url" property="imageUrl" />
+			<result column="play_num" property="playNum" />
+			<result column="speaker_id" property="speakerId" />
+			<result column="course_id" property="courseId" />
+			<association column="speaker_id" property="speaker"
+				javaType="com.rammus.model.Speaker">
+				<id column="id" property="id" />
+				<result column="speaker_name" property="speakerName" />
+				<result column="speaker_desc" property="speakerDesc" />
+				<result column="speaker_job" property="speakerJob" />
+				<result column="pic_url" property="picUrl" />
+			</association>
+		</collection>
+	</resultMap>
+
+	<select id="selectIncludeVideoAndSubjectBySubjectId"
+		resultMap="courseMap2">
+		select * from course c LEFT JOIN
+		video v on c.id = v.course_id LEFT JOIN
+		subject s on c.subject_id = s.subject_id LEFT JOIN
+		speaker sp ON v.speaker_id = sp.id
+		where c.subject_id = #{subjectId}
+	</select>
 </mapper>

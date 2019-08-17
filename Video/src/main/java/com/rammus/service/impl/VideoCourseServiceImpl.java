@@ -3,10 +3,12 @@ package com.rammus.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.rammus.mapper.ExCourseMapper;
 import com.rammus.model.Course;
+import com.rammus.model.ExCourse;
 import com.rammus.service.VideoCourseService;
 
 
@@ -56,7 +58,7 @@ public class VideoCourseServiceImpl implements  VideoCourseService{
 
 	}
 
-	public List<Course> selectBySubjectId(int subjectId) {
+	public List<ExCourse> selectBySubjectId(int subjectId) {
 
 		return em.selectBySubjectId(subjectId);
 	}
@@ -65,8 +67,10 @@ public class VideoCourseServiceImpl implements  VideoCourseService{
 		
 		return em.selectByIdContainVideoList(id);
 	}
-	
-	
+	@Cacheable("SELECT_VIDEOANDSUBJECT")
+	public List<ExCourse> selectIncludeVideoAndSubjectBySubjectId(int subjectId){
+		return	em.selectIncludeVideoAndSubjectBySubjectId(subjectId);
+	}
 
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.rammus.model.ExVideo;
 import com.rammus.model.Video;
 
 public interface ExVideoMapper {
@@ -14,7 +15,7 @@ public interface ExVideoMapper {
 
 	int insertSelective(Video record);
 
-	Video selectById(Integer videoId);
+	ExVideo selectById(Integer videoId);
 
 	int updateByIdSelective(Video record);
 

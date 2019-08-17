@@ -61,8 +61,8 @@
 
 	<div>
 		<!--面包屑导航-->
-		<div class="container mian-nav">公开课 / WEB前端</div>
-		<input id="videoId" value="246" type="hidden">
+		<%-- <div class="container mian-nav">公开课 / ${videoResult.data.course.subject.subjectName }</div> --%>
+		<input id="videoId" value="${videoResult.data.video.videoId }" type="hidden">
 		<div id="content">
 
 
@@ -73,32 +73,32 @@
 					<div class="v-intro">
 						<div class="left">
 							<video id="videoPlayer"
-								src="<%=basePath%>${video.videoUrl}"
+								src="<%=basePath%>${videoResult.data.video.videoUrl}"
 								class="video-js vjs-default-skin" controls="controls"
-								poster="static/z/02.jpg" data-setup="{}" height="280"
+								poster="${videoResult.data.video.imageUrl }" data-setup="{}" height="280"
 								width="627">
 							</video>
 						</div>
 
 						<div class="right">
-							<p class="right-title">${video.title}</p>
+							<p class="right-title">${videoResult.data.video.title}</p>
 							<div class="avatar">
 								<span
-									style="background-image: url(<%=basePath%>${video.speaker.picUrl})"></span>
+									style="background-image: url(<%=basePath%>${videoResult.data.video.speaker.picUrl})"></span>
 								<p>
-									<b>讲师：${video.speaker.speakerName}</b><br>
-									<i>${video.speaker.speakerDesc}</i>
+									<b>讲师：${videoResult.data.video.speaker.speakerName}</b><br>
+									<i>${videoResult.data.video.speaker.speakerDesc}</i>
 								</p>
 							</div>
 							<p class="video-intro">
-								<span>本节内容：</span>${video.detail}
+								<span>本节内容：</span>${videoResult.data.video.detail}
 							</p>
 						</div>
 					</div>
 
 					<div class="kcjs">
 						<p class="title">课程介绍</p>
-						<p class="content">${course.courseDesc}</p>
+						<p class="content">${videoResult.data.video.course.courseDesc}</p>
 					</div>
 
 				</div>
@@ -108,23 +108,22 @@
 				<div class="container">
 					<p class="title">目录</p>
 
-<c:forEach items="${course.videoList}" var="v">
+<c:forEach items="${videoResult.data.course}" var="v">
+<c:forEach items="${v.videoList}" var="i">
 					<div class="chapter">
 						<p class="biaoti">
-							<a href="<%=basePath%>user/videoDetail?videoId=${video.videoId}&courseId=${course.id}">${v.title }</a>
+							<a href="<%=basePath%>user/videoDetail?videoId=${i.videoId}&subjectId=${v.subjectId}">${i.title }</a>
 						</p>
-						<p class="lecturer">${v.detail }</p>
-						<p class="lecturer">讲师：${video.speaker.speakerName}</p>
+						<p class="lecturer">${i.detail }</p>
+						<p class="lecturer">讲师：${i.speaker.speakerName}</p>
 						<div class="v-info">
 							<span class="count"><img src="<%=basePath%>pictures/count.png"
-								alt="">${v.playNum }</span> <span class="duration"><img
-								src="<%=basePath%>pictures/player.png" alt="">${v.playNum }</span>
+								alt="">${i.playNum }</span> <span class="duration"><img
+								src="<%=basePath%>pictures/player.png" alt="">${i.playNum }</span>
 						</div>
 					</div>
-				
+			</c:forEach>	
 </c:forEach>
-
-
 				</div>
 			</div>
 		</div>

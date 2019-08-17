@@ -2,6 +2,7 @@ package com.rammus.service;
 
 import java.util.List;
 
+import com.rammus.model.ExVideo;
 import com.rammus.model.Video;
 
 /**
@@ -19,13 +20,15 @@ public interface VideoService {
 
 	public void add(Video video);
 
-	public Video selectById(int id);
+	public ExVideo selectById(int id);
 
-	public Integer update(Video video);
+	public void update(Video video);
 
 	public void deleteById(int id);
 
 	List<Video> selectLike(String speakerId, String courseId, String subject, String factor, int page, int number);
 
 	int selectLikeCount(String speakerId, String courseId, String subject, String factor);
+	
+	
 }
