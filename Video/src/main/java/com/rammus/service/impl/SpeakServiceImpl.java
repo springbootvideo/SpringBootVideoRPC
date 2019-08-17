@@ -1,7 +1,6 @@
 package com.rammus.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,7 @@ public class SpeakServiceImpl implements SpeakService{
 		// TODO Auto-generated method stub
 		return speakMapper.selectByPrimaryKey(id);
 	}
-
+	
 	@Override
 	public void speakerUpdate(Speaker speaker) {
 		// TODO Auto-generated method stub

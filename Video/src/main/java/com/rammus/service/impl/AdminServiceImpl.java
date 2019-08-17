@@ -3,6 +3,7 @@ package com.rammus.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import com.rammus.mapper.AdminMapper;
@@ -47,12 +48,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	@CacheEvict(value = "admin")
 	public void adminSave(Admin admin) {
 		// TODO Auto-generated method stub
 		adminMapper.insert(admin);
 	}
 
 	@Override
+	@CacheEvict(value = "admin")
 	public Admin selectByIdd(Integer id) {
 		// TODO Auto-generated method stub
 		Admin list = adminMapper.selectByPrimaryKey(id);
@@ -60,12 +63,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	@CacheEvict(value = "admin")
 	public void adminUpdate(Admin admin) {
 		// TODO Auto-generated method stub
 		adminMapper.updateByPrimaryKey(admin);
 	}
 
 	@Override
+	@CacheEvict(value = "admin")
 	public void adminDelete(Integer id) {
 		// TODO Auto-generated method stub
 		adminMapper.deleteByPrimaryKey(id);
