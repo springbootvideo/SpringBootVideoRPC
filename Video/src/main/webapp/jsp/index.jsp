@@ -266,9 +266,9 @@
 			</div>
 			<div class="mask_content_body">
 				<form id="regForm"
-					action="<%=basePath%>user/register">
-					<h3>新用户注册</h3>
-					<input id="regEmail" placeholder="请输入邮箱" name="email" type="email">
+					action="<%=basePath%>user/register" method="post">
+					<h3>-新用户注册-</h3>
+					<input id="regEmail" placeholder="请输入邮箱" name="accounts" type="email">
 					<span id="emailMsg"> </span> 
 						<input id="regPsw" placeholder="请输入密码"
 						name="password" type="password"> 
@@ -286,7 +286,7 @@
 								style="cursor: pointer;">您的浏览器版本不支持canvas</canvas>
 						</div>
 					</div>
-					<input onclick="return commitRegForm();" value="注　册" type="submit">
+					<input  value="注　册" type="submit">
 				</form>
 			</div>
 			<div class="mask_content_footer">

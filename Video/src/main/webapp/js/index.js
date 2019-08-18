@@ -175,7 +175,7 @@ function commitRegForm(){
              
              $.ajax({
               
-                url:"front/user/insertUser.action",
+                url:"/video/user/register",
                 data:$("#regForm").serialize(),
                 type:"POST",
                 success:function(data){

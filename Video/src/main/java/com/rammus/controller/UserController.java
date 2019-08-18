@@ -66,7 +66,8 @@ public class UserController {
 	public String register(User user, Model model) {
 		// 加密。然后保存
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-		return "index";
+		userService.insert(user);
+		return "redirect:index";
 	}
 
 	/**
@@ -269,4 +270,8 @@ public class UserController {
 		return "redirect:userCenter";
 
 	}
+
+	/**
+	 * 发送邮箱
+	 */
 }
