@@ -50,7 +50,7 @@ public class UserController {
 		} else {
 
 			req.getSession().setAttribute("user", user);
-			return "userCenter";
+			return "redirect:userCenter";
 		}
 		return "index";
 	}
